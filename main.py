@@ -17,12 +17,20 @@ def sin_wave(x, freq, y_sin, i):
 
 def tr_wave(x, y_tr, i):
     omega = 2.0 * np.pi * 10
-    y_tr[i] = (4 / np.pi) * ((np.sin(omega * x)) - ((1 / 9) * np.sin(3 * omega * x)) + ((1 / 25) * np.sin(5 * omega * x))) 
+    y_tr[i] = (2.75 / np.pi) * ((np.sin(omega * x)) - ((1 / 9) * np.sin(3 * omega * x)) + ((1 / 25) * np.sin(5 * omega * x))) 
 
+
+
+def compare_waves(y_sin, y_tr, i, y_mod):
+    if(y_sin[i] > y_tr[i]):
+        y_mod[i] = 1
+    else:
+        y_mod[i] = -1
 
 
 y_seno = np.zeros(10000)
 y_tr = np.zeros(10000)
+y_mod = np.zeros(10000)
 #Preenchendo o eixo X
 eixo_x = np.linspace(0.0, 1.0, 10000)
 
@@ -37,6 +45,11 @@ for i in range(10000):
     tr_wave(eixo_x[i], y_tr, i)
 
 
+for i in range(10000):
+    compare_waves(y_seno, y_tr, i, y_mod)
+
+
 plt.plot(eixo_x, y_seno)
 plt.plot(eixo_x, y_tr)
+plt.plot(eixo_x, y_mod)
 plt.show()
