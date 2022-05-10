@@ -9,6 +9,12 @@ import math as mt
 #3 Comparar o valor das duas para construir a tabela de saída da onda modulada
 #4 Gerar os gráficos
 
+#Gerando os pontos da senoide
+def sin_wave(x, freq, y_sin, i):
+    omega = 2.0 * np.pi * freq
+    y_sin[i] = np.sin(omega * x)
+
+
 def tr_fun(x, y_tr, i):
     if(i == 0):
         y_tr[i] = x*4000.0
@@ -17,21 +23,21 @@ def tr_fun(x, y_tr, i):
     else:
         y_tr[i] = x*4000.0
 
+
 y_seno = np.zeros(10000)
 y_tr = np.zeros(10000)
 #Preenchendo o eixo X
 eixo_x = np.linspace(0.0, 1.0, 10000)
 
+
+#Recebendo frequência via input
+freq_str = input("Valor da Frequencia em Hz: ")
+freq = float(freq_str)
+
 #Preenchendo o eixo Y do seno
-#Colocar entrada de usuário na frequência da senoide
 for i in range(10000):
-    y_seno[i] = mt.sin(eixo_x[i]*np.pi*2.0)
-    tr_fun(eixo_x[i], y_tr, i)
+    sin_wave(eixo_x[i], freq, y_seno, i)
 
-
-
-#plot.plot(eixo_x, y_seno)
 
 plt.plot(eixo_x, y_seno)
-plt.plot(eixo_x, y_tr)
 plt.show()
