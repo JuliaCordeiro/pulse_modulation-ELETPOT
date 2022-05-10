@@ -15,13 +15,10 @@ def sin_wave(x, freq, y_sin, i):
     y_sin[i] = np.sin(omega * x)
 
 
-def tr_fun(x, y_tr, i):
-    if(i == 0):
-        y_tr[i] = x*4000.0
-    elif(y_tr[i-1] >= 1.0):
-        y_tr[i] = -4000.0*x
-    else:
-        y_tr[i] = x*4000.0
+def tr_wave(x, y_tr, i):
+    omega = 2.0 * np.pi * 10
+    y_tr[i] = (4 / np.pi) * ((np.sin(omega * x)) - ((1 / 9) * np.sin(3 * omega * x)) + ((1 / 25) * np.sin(5 * omega * x))) 
+
 
 
 y_seno = np.zeros(10000)
@@ -34,10 +31,12 @@ eixo_x = np.linspace(0.0, 1.0, 10000)
 freq_str = input("Valor da Frequencia em Hz: ")
 freq = float(freq_str)
 
-#Preenchendo o eixo Y do seno
+#Preenchendo o eixo Y 
 for i in range(10000):
     sin_wave(eixo_x[i], freq, y_seno, i)
+    tr_wave(eixo_x[i], y_tr, i)
 
 
 plt.plot(eixo_x, y_seno)
+plt.plot(eixo_x, y_tr)
 plt.show()
