@@ -16,7 +16,7 @@ def sin_wave(x, freq, y_sin, i):
 
 
 def tr_wave(x, y_tr, i):
-    omega = 2.0 * np.pi * 10
+    omega = 2.0 * np.pi * 200
     y_tr[i] = (2.75 / np.pi) * ((np.sin(omega * x)) - ((1 / 9) * np.sin(3 * omega * x)) + ((1 / 25) * np.sin(5 * omega * x))) 
 
 
@@ -49,7 +49,25 @@ for i in range(10000):
     compare_waves(y_seno, y_tr, i, y_mod)
 
 
-plt.plot(eixo_x, y_seno)
-plt.plot(eixo_x, y_tr)
-plt.plot(eixo_x, y_mod)
+fig, axs = plt.subplots(2, figsize=(20,8))
+
+axs[0].set(
+    ylabel = "Amplitude",
+    title = "Senóide x Onda Triangular"
+)
+axs[0].plot(eixo_x, y_seno)
+axs[0].plot(eixo_x, y_tr)
+axs[0].legend(["Senóide", "Onda Triangular"])
+
+axs[1].set(
+    ylabel = "Amplitude",
+    xlabel = "Tempo (s)",
+    title = "Onda Modulada"
+)
+axs[1].plot(eixo_x, y_mod, 'tab:green')
+axs[1].legend(["Saída Modulada"])
+
+
+
+plt.savefig('output.png')
 plt.show()
