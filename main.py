@@ -21,11 +21,22 @@ def tr_wave(x, y_tr, i, freq):
     y_tr[i] = (2.75 / np.pi) * ((np.sin(omega * x)) - ((1 / 9) * np.sin(3 * omega * x)) + ((1 / 25) * np.sin(5 * omega * x))) 
 
 #função que compara as ondas
+#A lógica de comparação é a seguinte:
+#   No semi-ciclo positivo da senóide: seno > triangular -> saida = 1
+#                                      seno < triangular -> saida = -1
+#   No semi-siclo negativo da senóide: seno > triangular -> saida = -1
+#                                      seno < triangular -> saida = 1  
 def compare_waves(y_sin, y_tr, i, y_mod):
-    if(y_sin[i] > y_tr[i]):
-        y_mod[i] = 1
+    if(y_sin[i] >= 0.0):
+        if(y_sin[i] > y_tr[i]):
+            y_mod[i] = 1
+        else:
+            y_mod[i] = -1
     else:
-        y_mod[i] = -1
+        if(y_sin[i] < y_tr[i]):
+            y_mod[i] = 1
+        else:
+            y_mod[i] = -1
 
 #inicialização de variáveis
 y_seno = np.zeros(10000)
@@ -43,7 +54,7 @@ freqs_tr = [10.0, 50.0, 100.0, 200.0]
 freq_str = input("Valor da Frequencia em Hz: ")
 freq = float(freq_str)
 
-for j in range(4):
+for j in range(5):
     #Preenchendo o eixo Y 
     for i in range(10000):
         sin_wave(eixo_x[i], freq, y_seno, i)
