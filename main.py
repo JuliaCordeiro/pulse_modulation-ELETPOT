@@ -54,7 +54,7 @@ freqs_tr = [10.0, 50.0, 100.0, 200.0]
 freq_str = input("Valor da Frequencia em Hz: ")
 freq = float(freq_str)
 
-for j in range(5):
+for j in range(4):
     #Preenchendo o eixo Y 
     for i in range(10000):
         sin_wave(eixo_x[i], freq, y_seno, i)
